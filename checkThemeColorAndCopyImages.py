@@ -1,19 +1,30 @@
 # -*-coding:utf-8-*-
 import os
-from PIL import Image, ImageFile
 import shutil
+from pdf2image import convert_from_path
+from PIL import Image, ImageFile
+from minecart.miner import Document
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-themecolors = [{'r': 0, 'g': 221, 'b': 182}]
+themecolors = ['#50D0C1', '#00ddb6', '#5ED4C6']
 rootpath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor/ios/'
 folderpath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor_Images/ios/'
+rgbcolors = []
 result = []
+
+def hex_to_rgb(hex):
+    if '#' in hex:
+        hex.split('#')[1]
+    r = int(hex[1:3], 16)
+    g = int(hex[3:5], 16)
+    b = int(hex[5:7], 16)
+    return {'r': r, 'g': g, 'b': b}
 
 def color_match(color):
     if not isinstance(color, tuple):
         return False
-    for themecolor in themecolors:
-        if color[0] == themecolor['r'] and color[1] == themecolor['g'] and color[2] == themecolor['b']:
+    for rgbcolor in rgbcolors:
+        if color[0] == rgbcolor['r'] and color[1] == rgbcolor['g'] and color[2] == rgbcolor['b']:
             return True
     return False
 
@@ -29,12 +40,32 @@ def imageColor_config(imagepath):
                 result.append(imagepath)
                 return
 
+def pdfColor_config(imagepath):
+    images = convert_from_path(imagepath)
+    for image in images:
+        for x in range(0, image.width):
+            for y in range(0, image.height):
+                color = image.getpixel((x, y))
+                if color_match(color):
+                    # print('include theme color' + dirpath) 
+                    result.append(imagepath)
+                    return
+
+print('hex to rgb...')
+for hex in themecolors:
+    rgb = hex_to_rgb(hex)
+    print(hex + ':')
+    print(rgb)
+    rgbcolors.append(rgb)
+print('hex to rgb finished')
+
 print('start check images...')
 for dirpath, dirnames, filenames in os.walk(rootpath):
     for filename in filenames:
         path = os.path.join(dirpath, filename)
         if path.endswith(('pdf')):
             print('warning! please check pdf file: ' + path)
+            # pdfColor_config(path)
             continue
         if path.endswith(('png', 'jpg', 'jpeg', 'gif')):
             # print('start check image color' + path)
