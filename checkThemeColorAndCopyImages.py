@@ -2,11 +2,12 @@
 import os
 from PIL import Image, ImageFile
 import shutil
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-themecolors = [{'r': 80, 'g': 208, 'b': 193}, {'r': 94, 'g': 212, 'b': 198}]
-rootpath = os.path.dirname('/Users/smb-lsp/Desktop/Uniarch_ChangeColor/ios/')
+themecolors = [{'r': 0, 'g': 221, 'b': 182}]
+rootpath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor/ios/'
+folderpath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor_Images/ios/'
 result = []
-
 
 def color_match(color):
     if not isinstance(color, tuple):
@@ -28,13 +29,12 @@ def imageColor_config(imagepath):
                 result.append(imagepath)
                 return
 
-ImageFile.LOAD_TRUNCATED_IMAGES = True
 print('start check images...')
 for dirpath, dirnames, filenames in os.walk(rootpath):
     for filename in filenames:
         path = os.path.join(dirpath, filename)
         if path.endswith(('pdf')):
-            print('warning pdf or gif, please check files: ' + path)
+            print('warning! please check pdf file: ' + path)
             continue
         if path.endswith(('png', 'jpg', 'jpeg', 'gif')):
             # print('start check image color' + path)
@@ -45,9 +45,8 @@ print('\n'.join(result))
 
 print('copying images...')
 
-folderpath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor_Images/ios/'
 for path in result:
-    filename = path.split('/Users/smb-lsp/Desktop/Uniarch_ChangeColor/ios/')[1]
+    filename = path.split(rootpath)[1]
     dstfoldername = os.path.dirname(filename)
     dstpath = os.path.join(folderpath, dstfoldername)
     if not os.path.exists(dstpath):
