@@ -24,9 +24,14 @@ def color_match(color):
     if not isinstance(color, tuple):
         return False
     for rgbcolor in rgbcolors:
-        if color[0] == rgbcolor['r'] and color[1] == rgbcolor['g'] and color[2] == rgbcolor['b']:
-            return True
-    return False
+        if abs(color[0] - rgbcolor['r']) > 10:
+            return False
+        if abs(color[1] - rgbcolor['g']) > 10:
+            return False
+        if abs(color[2] - rgbcolor['b']) > 10:
+            return False
+        return True
+
 
 def imageColor_config(imagepath):
     image = Image.open(imagepath)
