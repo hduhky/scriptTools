@@ -1,8 +1,16 @@
 import os
 from git import Repo
 
-repo_dir = '/Users/smb-lsp/Base64'
-comp_dir = '/Users/smb-lsp/Desktop/Base/trunk2.0/ios/ThirdLibrary/Foundation/Base64'
+repo_dir = '/Users/smb-lsp/Desktop/Others/MKNetworkKit'
+comp_dir = '/Users/smb-lsp/Desktop/Base/trunk_ezlive2.0/ios/ThirdLibrary/Foundation/NetworkUtil/MKNetworkKit'
+
+def get_base_dir():
+    lib_name = os.path.basename(repo_dir)
+    temp_dir = repo_dir
+    while os.path.exists(os.path.join(temp_dir, lib_name)):
+        temp_dir = os.path.join(temp_dir, lib_name)
+    temp_dir += '/'
+    return temp_dir
 
 def cmp_file(f1, f2):
     if not os.path.exists(f2):
@@ -53,14 +61,8 @@ def tag_match(tag_name):
 repo = Repo(repo_dir)
 assert not repo.bare
 
-lib_name = os.path.basename(repo_dir)
-temp_dir = os.path.join(repo_dir, lib_name)
-if os.path.exists(temp_dir):
-    base_dir = temp_dir
-else:
-    base_dir = repo_dir
-base_dir += '/'
-
+comp_dir += '/'
+base_dir = get_base_dir()
 
 tag_names = []
 diff_count_min = 10000
