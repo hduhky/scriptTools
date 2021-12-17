@@ -8,7 +8,6 @@ target_path = os.path.dirname(csv_path) + '/l10n/'
 prefix = 'intl'
 suffix = '.arb'
 
-
 locales = []
 keys = []
 result = {}
@@ -30,8 +29,6 @@ def set_key(key_row):
             continue
         locales.append(key)
         result[key] = {}
-    print('locales:')
-    print(locales)
 
 def set_value(value_row):
     for value_index in range(len(value_row)):
@@ -42,10 +39,6 @@ def set_value(value_row):
                 continue
             keys.append(value_row[value_index])
         result[locales[value_index - 1]][key] = value_row[value_index]
-    print('keys:')
-    print(keys)
-    print('result:')
-    print(result)
 
 def export_to_arb():
     if not os.path.exists(target_path):
@@ -53,11 +46,19 @@ def export_to_arb():
     os.system('cd %s' % target_path)
     for locale in locales:
         data = result[locale]
-        json_str = json.dumps(data)
+        json_str = json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True)
         file_name = prefix + '_' + locale + suffix
         with open(target_path + file_name, mode='w') as file:
             file.write(json_str)
+        file.close()
 
 read_csvfile(csv_path)
+
+print('locales:')
+print(locales)
+print('keys:')
+print(keys)
+print('result:')
+print(result)
 
 export_to_arb()
