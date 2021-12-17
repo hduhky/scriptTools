@@ -2,6 +2,8 @@
 import os
 import shutil
 
+# 用于两个目录相同的文件夹内容替换
+
 srcPath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor_Images/ios/'
 dstPath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor/ios/'
 

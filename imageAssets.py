@@ -2,6 +2,8 @@
 import os
 import json
 
+# 用于检测imageAssets中json文件内图片名称与实际文件不一致的情况，并更新json文件中图片名称
+
 rootPath = os.path.dirname('/Users/smb-lsp/Desktop/Uniarch_ChangeColor/ios/EZViewer/Images.xcassets')
 
 def jsonfile_config(dirpath, jsonpath, imagenames):

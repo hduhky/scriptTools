@@ -2,6 +2,8 @@
 import os
 import shutil
 
+#用于根据日志把修改图片保存到目标路径
+
 result = []
 with open('/Users/smb-lsp/Desktop/log.txt') as file:
     lines = file.readlines()

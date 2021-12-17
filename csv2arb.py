@@ -2,10 +2,12 @@ import os
 from csv import reader
 import json
 
+# 把csv文件中的翻译转化为arb文件
+
 csv_path = '/Users/smb-lsp/Desktop/本地化/l10n.csv'
 
 target_path = os.path.dirname(csv_path) + '/l10n/'
-prefix = 'intl'
+prefix = 'intl_'
 suffix = '.arb'
 
 locales = []
@@ -47,7 +49,7 @@ def export_to_arb():
     for locale in locales:
         data = result[locale]
         json_str = json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True)
-        file_name = prefix + '_' + locale + suffix
+        file_name = prefix + locale + suffix
         with open(target_path + file_name, mode='w') as file:
             file.write(json_str)
         file.close()

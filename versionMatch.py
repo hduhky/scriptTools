@@ -1,16 +1,11 @@
 import os
 from git import Repo
 
-repo_dir = '/Users/smb-lsp/Desktop/Others/MKNetworkKit'
-comp_dir = '/Users/smb-lsp/Desktop/Base/trunk_ezlive2.0/ios/ThirdLibrary/Foundation/NetworkUtil/MKNetworkKit'
+# 用于检测三方库版本号
 
-def get_base_dir():
-    lib_name = os.path.basename(repo_dir)
-    temp_dir = repo_dir
-    while os.path.exists(os.path.join(temp_dir, lib_name)):
-        temp_dir = os.path.join(temp_dir, lib_name)
-    temp_dir += '/'
-    return temp_dir
+repo_dir = '/Users/smb-lsp/Desktop/Others/TBPlayer'
+base_dir = '/Users/smb-lsp/Desktop/Others/TBPlayer/TBPlayer/Classes'
+comp_dir = '/Users/smb-lsp/Desktop/Base/trunk2.0/ios/ThirdLibrary/Foundation/TBPlayer/Classes'
 
 def cmp_file(f1, f2):
     if not os.path.exists(f2):
@@ -62,7 +57,7 @@ repo = Repo(repo_dir)
 assert not repo.bare
 
 comp_dir += '/'
-base_dir = get_base_dir()
+base_dir += '/'
 
 tag_names = []
 diff_count_min = 10000

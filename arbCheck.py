@@ -1,6 +1,8 @@
 import os
 import json
 
+# 用于检查arb文件是否翻译齐全
+
 def locale_from_file_name(file_name):
     prefix = 'intl_'
     suffix = '.arb'

@@ -8,6 +8,7 @@ assetsPath = os.path.dirname('/Users/smb-lsp/Desktop/Uniarch_ChangeColor/ios/EZV
 resourcePath = os.path.dirname('/Users/smb-lsp/Desktop/Uniarch_ChangeColor/ios/EZViewer/Resource/')
 result = []
 
+# 检测所有图片中带有主题色的图片，并保存（老版本）
 
 def color_match(color):
     if not isinstance(color, tuple):

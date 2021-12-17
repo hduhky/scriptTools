@@ -6,6 +6,8 @@ from PIL import Image, ImageFile
 from minecart.miner import Document
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
+# 检测所有图片中带有主题色的图片，并保存
+
 themecolors = ['#50D0C1', '#00ddb6', '#5ED4C6']
 rootpath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor/ios/'
 folderpath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor_Images/ios/'
