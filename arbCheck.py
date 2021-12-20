@@ -25,8 +25,8 @@ def traverse(root_path):
             result[locale] = dic
     return result
 
-def all_keys_from_en_locale_result(en_locale_result):
-    return dict.keys(en_locale_result)
+def all_keys_from_basic_locale_result(basic_locale_result):
+    return dict.keys(basic_locale_result)
 
 def check_locale_result(locale):
     locale_values = all_locale_result[locale]
@@ -39,15 +39,9 @@ def check_locale_result(locale):
             continue
 
 all_locale_result = traverse('/Users/smb-lsp/Desktop/Flutter_Localization/lib/l10n')
+basic_locale = 'en'
 
-all_keys = all_keys_from_en_locale_result(all_locale_result['en'])
+all_keys = all_keys_from_basic_locale_result(all_locale_result[basic_locale])
 
 for locale_result in all_locale_result:
     check_locale_result(locale_result)
-
-
-
-
-
-
-
