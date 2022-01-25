@@ -27,9 +27,9 @@ def read_logs(csvpath):
             logs.append(log_info)
     csvfile.close()   
 
-read_problems('/Users/hky/Desktop/Base/trunk_ezlive2.0/problems.csv')
+read_problems('/Users/hky/Desktop/problem.csv')
 
-read_logs('/Users/hky/Desktop/Base/trunk_ezlive2.0/log.csv')
+read_logs('/Users/hky/Desktop/log.csv')
 
 unresolved_problems = []
 
