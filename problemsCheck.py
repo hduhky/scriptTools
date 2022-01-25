@@ -3,6 +3,7 @@ from csv import reader
 problems = []
 logs = []
 
+
 def read_problems(csvpath):
     with open(csvpath, encoding='utf-8') as csvfile:
         spamreader = reader(csvfile)
@@ -10,9 +11,12 @@ def read_problems(csvpath):
             problems.append(row[0])
     csvfile.close()
 
+
 log_keys = []
+
+
 def read_logs(csvpath):
-    flag = False 
+    flag = False
     with open(csvpath, encoding='utf-8') as csvfile:
         spamreader = reader(csvfile)
         for row in spamreader:
@@ -25,7 +29,8 @@ def read_logs(csvpath):
                 key = log_keys[key_index]
                 log_info[key] = row[key_index]
             logs.append(log_info)
-    csvfile.close()   
+    csvfile.close()
+
 
 read_problems('/Users/hky/Desktop/problem.csv')
 
