@@ -4,6 +4,8 @@ import sys
 import xml.etree.cElementTree as etree
 import time
 
+# python ~/Desktop/scriptTools/svnlog2csv.py -r 75349:HEAD > ~hky/Desktop/a.csv
+
 log_text = subprocess.Popen(['svn', 'log', '--xml'] + sys.argv[1:],
                             stdout=subprocess.PIPE).communicate()[0]
 log_xml = etree.XML(log_text)

@@ -36,14 +36,21 @@ read_problems('/Users/hky/Desktop/problem.csv')
 
 read_logs('/Users/hky/Desktop/log.csv')
 
-unresolved_problems = []
+all_problems = []
+solved_problems = []
 
 for problem in problems:
+    all_problems.append(problem)
     for log_info in logs:
         msg = log_info['msg']
-        if problem not in msg:
-            if problem not in unresolved_problems:
-                unresolved_problems.append(problem)
+        if problem in msg:
+            if problem not in solved_problems:
+                solved_problems.append(problem)
 
-for unresolved_problem in unresolved_problems:
+for solved_problem in solved_problems:
+    # print('problem %s is in svn log' % solved_problem)
+    if solved_problem in all_problems:
+        all_problems.remove(solved_problem)
+
+for unresolved_problem in all_problems:
     print('waring! problem %s is not in svn log' % unresolved_problem)
