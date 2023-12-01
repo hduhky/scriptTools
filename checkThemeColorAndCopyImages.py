@@ -4,15 +4,17 @@ import shutil
 from pdf2image import convert_from_path
 from PIL import Image, ImageFile
 from minecart.miner import Document
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 # 检测所有图片中带有主题色的图片，并保存
 
-themecolors = ['#50D0C1', '#00ddb6', '#5ED4C6']
-rootpath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor/ios/'
-folderpath = '/Users/smb-lsp/Desktop/Uniarch_ChangeColor_Images/ios/'
+themecolors = ['#53BDD5', '#249AB5']
+rootpath = '/Users/hky/Desktop/ezlive/ios/'
+folderpath = '/Users/hky/Desktop/images/ios/'
 rgbcolors = []
 result = []
+
 
 def hex_to_rgb(hex):
     if '#' in hex:
@@ -21,6 +23,7 @@ def hex_to_rgb(hex):
     g = int(hex[3:5], 16)
     b = int(hex[5:7], 16)
     return {'r': r, 'g': g, 'b': b}
+
 
 def color_match(color):
     if not isinstance(color, tuple):
@@ -43,9 +46,10 @@ def imageColor_config(imagepath):
         for y in range(0, image.height):
             color = image.getpixel((x, y))
             if color_match(color):
-                # print('include theme color' + dirpath) 
+                # print('include theme color' + dirpath)
                 result.append(imagepath)
                 return
+
 
 def pdfColor_config(imagepath):
     images = convert_from_path(imagepath)
@@ -54,9 +58,10 @@ def pdfColor_config(imagepath):
             for y in range(0, image.height):
                 color = image.getpixel((x, y))
                 if color_match(color):
-                    # print('include theme color' + dirpath) 
+                    # print('include theme color' + dirpath)
                     result.append(imagepath)
                     return
+
 
 print('hex to rgb...')
 for hex in themecolors:
