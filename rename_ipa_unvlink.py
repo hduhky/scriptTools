@@ -16,7 +16,7 @@ def get_trash_path():
 
 ADHOC_KEY = u"Adhoc"
 APPSTORE_KEY = u"Appstore"
-PRODUCT_CODE = u"UNV-Link_iOS-R2105"
+PRODUCT_CODE = u"UNV-Link_iOS-R2101"
 TRASH_PATH = get_trash_path()
 DESKTOP_PATH = get_desktop_path()
 

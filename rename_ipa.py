@@ -16,7 +16,7 @@ def get_trash_path():
 
 ADHOC_KEY = u"adhoc"
 APPSTORE_KEY = u"appstore"
-PRODUCT_CODE = u"EZLive_iOS-B2105"
+PRODUCT_CODE = u"EZLive_iOS-B2101"
 TRASH_PATH = get_trash_path()
 DESKTOP_PATH = get_desktop_path()
 
