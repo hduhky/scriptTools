@@ -55,14 +55,43 @@ def extract_sensitive_words_by_split(file_path):
     words = [w.strip() for w in content.split('|') if w.strip()]
     return words
 
+def save_words_to_file(words, output_path):
+    try:
+        with open(output_path, 'w', encoding='utf-8') as f:
+            for word in words:
+                f.write(word.strip() + '\n')
+        print(f"敏感词已保存到：{output_path}")
+        return True
+    except Exception as e:
+        print(f"保存文件时出错：{str(e)}")
+        return False
+
 def main():
-    if len(sys.argv) < 2 or len(sys.argv) > 3:
-        print("用法：python extract_sensitive_words.py <敏感词txt路径> [mode]")
-        print("mode 可选：quote（默认，按引号提取），split（按换行/顿号/斜杠切分）")
+    if len(sys.argv) < 2 or len(sys.argv) > 4:
+        print("用法：python extract_sensitive_words.py <敏感词txt路径> [mode/output] [output]")
+        print("参数说明：")
+        print("- mode可选：quote（默认，按引号提取），split（按换行/顿号/斜杠切分）")
+        print("- output：输出文件路径")
+        print("示例：")
+        print("python extract_sensitive_words.py input.txt")
+        print("python extract_sensitive_words.py input.txt output.txt")
+        print("python extract_sensitive_words.py input.txt split")
+        print("python extract_sensitive_words.py input.txt split output.txt")
         return
 
     file_path = sys.argv[1]
-    mode = sys.argv[2] if len(sys.argv) == 3 else 'quote'
+    mode = 'quote'
+    output_path = None
+    
+    if len(sys.argv) == 3:
+        # 判断第二个参数是mode还是output路径
+        if sys.argv[2] in ['quote', 'split']:
+            mode = sys.argv[2]
+        else:
+            output_path = sys.argv[2]
+    elif len(sys.argv) == 4:
+        mode = sys.argv[2]
+        output_path = sys.argv[3]
 
     if mode == 'split':
         words = extract_sensitive_words_by_split(file_path)
@@ -70,11 +99,14 @@ def main():
         words = extract_sensitive_words_by_quote(file_path)
 
     if words:
-        print("提取出的敏感词：")
-        for word in words:
-            print(word.strip())
+        if output_path:
+            save_words_to_file(words, output_path)
+        else:
+            print("提取出的敏感词：")
+            for word in words:
+                print(word.strip())
     else:
-        print("没有提取到任何敏感词")  
+        print("没有提取到任何敏感词")
 
 if __name__ == "__main__":
     main()
