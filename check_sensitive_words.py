@@ -7,13 +7,43 @@ def load_keywords(keyword_file):
         lines = f.readlines()
     return set(line.strip() for line in lines if line.strip())
 
+def strip_inline_comment(line):
+    """
+    移除行内注释，仅保留代码部分。支持多种注释风格。
+    """
+    comment_symbols = ['//', '#', '--']
+    min_idx = len(line)
+    for symbol in comment_symbols:
+        idx = line.find(symbol)
+        if idx != -1 and idx < min_idx:
+            min_idx = idx
+    # 处理C/Java多行注释的起始
+    idx = line.find('/*')
+    if idx != -1 and idx < min_idx:
+        min_idx = idx
+    return line[:min_idx]
+
 def scan_file(file_path, keywords):
     hits = []
     try:
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+            in_multiline_comment = False
             for lineno, line in enumerate(f, start=1):
+                line_strip = line.strip()
+                # 检查多行注释块
+                if in_multiline_comment:
+                    if '*/' in line_strip or '"""' in line_strip or "'''" in line_strip:
+                        in_multiline_comment = False
+                    continue
+                if line_strip.startswith('/*') or line_strip.startswith('"""') or line_strip.startswith("'''"):
+                    in_multiline_comment = True
+                    continue
+                # 跳过整行注释
+                if line_strip.startswith('//') or line_strip.startswith('#') or line_strip.startswith('--'):
+                    continue
+                code_part = strip_inline_comment(line)
                 for word in keywords:
-                    if word in line:
+                    if word in code_part:
                         hits.append((file_path, lineno, word, line.strip()))
     except Exception as e:
         print(f"[跳过] 无法读取文件: {file_path}，原因: {e}")
